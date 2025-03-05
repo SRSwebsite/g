@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <link rel="stylesheet" href="file/engines/personal gallery.css">
+  <link rel="icon" href="file/images/srs.ico" type="image/x-icon"> <!-- آیکون -->
+</head>
+<body>
+<div class="header">
+ <iframe class="unique-iframe" src="https://srswebsite.github.io/app/logo/index.html"></iframe>
+<a href="#" class="btn-shine">پنل اختصاصی  اطلاعات راه و ساختمان</a>
+</div>
+<div id="iframes-container"></div>
+    
+	<button id="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-adjust"></i> <!-- آیکون تغییر تم -->
+</button>
+	
+	<button class="scroll-link" onclick="scrollToFooter()">
+        <i class="fas fa-plane-departure"></i>
+    </button>
+	
+	<button id="toggle-filter-btn" onclick="toggleFilterPanel()">
+    <i class="fas fa-filter"></i> <!-- آیکون فیلتر -->
+</button>
+
+
+<div id="filter-panel" class="filter-panel">
+    <div class="filter-content">
+	 <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران</h3>
+            <div class="submenu">
+	 <!-- دسته "نوع کاربری" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران عمومی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار پروژه‌های ساختمانی مسکونی" onchange="updateSelectedFilters()">پیمانکار پروژه‌های ساختمانی مسکونی
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار پروژه‌های تجاری و اداری" onchange="updateSelectedFilters()">پیمانکار پروژه‌های تجاری و اداری
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار پروژه‌های صنعتی" onchange="updateSelectedFilters()">پیمانکار پروژه‌های صنعتی
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار پروژه‌های زیربنایی و عمرانی" onchange="updateSelectedFilters()">پیمانکار پروژه‌های زیربنایی و عمرانی
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار نوسازی و بازسازی" onchange="updateSelectedFilters()">پیمانکار نوسازی و بازسازی
+                </label>
+            </div>
+        </div>
+        <!-- دسته "مصالح" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمان کار زیرساخت</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار تخریب" onchange="updateSelectedFilters()">پیمانکار تخریب
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار فونداسیون" onchange="updateSelectedFilters()">پیمانکار فونداسیون
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار گودبرداری" onchange="updateSelectedFilters()">پیمانکار گودبرداری
+                </label>
+				
+            </label></div>
+        </div>
+		 <!-- دسته نوع سازه" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکار تاسیسات مکانیکی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار لوله‌کشی آب و فاضلاب" onchange="updateSelectedFilters()">پیمانکار لوله‌کشی آب و فاضلاب
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار گرمایشی و سرمایشی" onchange="updateSelectedFilters()">پیمانکار گرمایشی و سرمایشی
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار سیستم‌های تهویه مطبوع و هواساز" onchange="updateSelectedFilters()">پیمانکار سیستم‌های تهویه مطبوع و هواساز
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار گازرسانی و لوله‌کشی گاز" onchange="updateSelectedFilters()">پیمانکار گازرسانی و لوله‌کشی گاز
+                </label>
+            </div>
+        </div>
+		<!-- دسته تراکم" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران تأسیسات برقی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار سیم‌کشی و تابلو برق" onchange="updateSelectedFilters()">پیمانکار سیم‌کشی و تابلو برق
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار سیستم‌های روشنایی و نورپردازی" onchange="updateSelectedFilters()">پیمانکار سیستم‌های روشنایی و نورپردازی
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار سیستم‌های امنیتی" onchange="updateSelectedFilters()">پیمانکار سیستم‌های امنیتی
+            </label></div>
+        </div>
+		 <!--دسته بندی وضع موجود" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران نازک‌کاری و دکوراسیون</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار گچ‌کاری و سقف کاذب" onchange="updateSelectedFilters()">پیمانکار گچ‌کاری و سقف کاذب
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار رنگ‌آمیزی و نقاشی ساختمان" onchange="updateSelectedFilters()">پیمانکار رنگ‌آمیزی و نقاشی ساختمان
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار کاغذ دیواری و دیوارپوش‌ها" onchange="updateSelectedFilters()">پیمانکار کاغذ دیواری و دیوارپوش‌ها
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار دکوراتیو کابینت کمد" onchange="updateSelectedFilters()">پیمانکار دکوراتیو کابینت کمد
+                </label>
+            </div>
+        </div>
+<!--دسته بندی انواع پروژه" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران محوطه‌سازی و نما</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار نمای سنگی، آجری و شیشه‌ای" onchange="updateSelectedFilters()">پیمانکار نمای سنگی، آجری و شیشه‌ای
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار نمای کامپوزیت و سرامیک خشک" onchange="updateSelectedFilters()">پیمانکار نمای کامپوزیت و سرامیک خشک
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار محوطه‌سازی و فضای سبز" onchange="updateSelectedFilters()">پیمانکار محوطه‌سازی و فضای سبز
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار کف‌سازی و سنگ‌فرش معابر" onchange="updateSelectedFilters()">پیمانکار کف‌سازی و سنگ‌فرش معابر
+                </label>
+            </div>
+        </div>
+        <!-- دسته "سبک" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">پیمانکاران ایمنی و مقاوم‌سازی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="پیمانکار عایق‌کاری حرارتی و صوتی" onchange="updateSelectedFilters()">پیمانکار عایق‌کاری حرارتی و صوتی
+                </label>
+                <label>
+                    <input type="checkbox" value="پیمانکار ضدحریق و سیستم‌های اعلام و اطفای حریق" onchange="updateSelectedFilters()">پیمانکار ضدحریق و سیستم‌های اعلام و اطفای حریق
+                </label>
+				<label>
+                    <input type="checkbox" value="پیمانکار مقاوم‌سازی در برابر زلزله" onchange="updateSelectedFilters()">پیمانکار مقاوم‌سازی در برابر زلزله
+                </label>
+            </div>
+        </div>
+		</div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تامین کنندگان</h3>
+            <div class="submenu">
+			<div class="category">
+            <h3 onclick="toggleSubmenu(this)">اول ایمنی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="تجهیزات ایمنی و حفاظت کارگران" onchange="updateSelectedFilters()">تجهیزات ایمنی و حفاظت کارگران
+                </label>
+            </div>
+        </div>
+			 <div class="category">
+            <h3 onclick="toggleSubmenu(this)">مصالح پایه</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="مصالح فروشی سیمان و بتن" onchange="updateSelectedFilters()">مصالح فروشی سیمان و بتن
+                </label>
+                <label>
+                    <input type="checkbox" value="شرکت بتن ریزی" onchange="updateSelectedFilters()">شرکت بتن ریزی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشگاه قطعات بتنی پیش‌ساخته" onchange="updateSelectedFilters()">فروشگاه قطعات بتنی پیش‌ساخته
+                </label>
+            </div>
+        </div>
+		 <div class="category">
+            <h3 onclick="toggleSubmenu(this)">مصالح آجر و سفال</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="کارگاه آجر و سفال" onchange="updateSelectedFilters()">کارگاه آجر و سفال
+                </label>
+                <label>
+                    <input type="checkbox" value="نمایندگی فروش آجر فشاری، آجر سفالی، آجر ماشینی" onchange="updateSelectedFilters()">نمایندگی فروش آجر فشاری، آجر سفالی، آجر ماشینی
+                </label>
+				<label>
+                    <input type="checkbox" value="کارگاه بلوک سیمانی و بلوک سبک" onchange="updateSelectedFilters()">کارگاه بلوک سیمانی و بلوک سبک
+                </label>
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">مصالح شن، ماسه، پوکه و گچ</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="معدن شن و ماسه" onchange="updateSelectedFilters()">معدن شن و ماسه
+                </label>
+                <label>
+                    <input type="checkbox" value="فروشنده گچ ساختمانی" onchange="updateSelectedFilters()">فروشنده گچ ساختمانی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشنده پوکه معدنی و صنعتی" onchange="updateSelectedFilters()">فروشنده پوکه معدنی و صنعتی
+                </label>
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">آهن آلات فولاد و میلگرد</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشنده آهن آلات ساختمانی" onchange="updateSelectedFilters()">فروشنده آهن آلات ساختمانی
+                </label>
+           
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">مصالح فروشی سنگ</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="مصالح فروشی سنگ" onchange="updateSelectedFilters()">مصالح فروشی سنگ
+                </label>
+           
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">فروشندگان قالب و تجهیزات بتن‌ریزی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشندگان قالب و تجهیزات بتن‌ریزی" onchange="updateSelectedFilters()">فروشندگان قالب و تجهیزات بتن‌ریزی
+                </label>
+           
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تأمین‌کنندگان سیستم‌های سبک‌سازی و سقف‌های نوین</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="تولید کننده سقف‌های عرشه فولادی و تیرچه بلوک" onchange="updateSelectedFilters()">تولید کننده سقف‌های عرشه فولادی و تیرچه بلوک
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشگاه یونولیت ساختمانی و ساندویچ پانل" onchange="updateSelectedFilters()">فروشگاه یونولیت ساختمانی و ساندویچ پانل
+                </label>
+           
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">فروشنده درب، پنجره</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشگاه درب ضد سرقت و درب چوبی" onchange="updateSelectedFilters()">فروشگاه درب ضد سرقت و درب چوبی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشگاه پنجره‌های UPVC و آلومینیومی  " onchange="updateSelectedFilters()">فروشگاه پنجره‌های UPVC و آلومینیومی  
+                </label>
+           <label>
+                    <input type="checkbox" value="فروشگاه شیشه‌های ساختمانی" onchange="updateSelectedFilters()">فروشگاه شیشه‌های ساختمانی
+                </label>
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تولیدکنندگان و فروشندگان نمای ساختمان</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشگاه نمای کامپوزیت، شیشه‌ای و سنگی" onchange="updateSelectedFilters()">فروشگاه نمای کامپوزیت، شیشه‌ای و سنگی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشگاه چوب ترموود و سرامیک نما" onchange="updateSelectedFilters()">فروشگاه چوب ترموود و سرامیک نما 
+                </label>
+           <label>
+                    <input type="checkbox" value="فروشگاه چسب‌های تخصصی نما و فلاشینگ" onchange="updateSelectedFilters()">فروشگاه چسب‌های تخصصی نما و فلاشینگ
+                </label>
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تأمین‌کنندگان سیستم‌های گرمایشی و سرمایشی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="تأمین‌کنندگان سیستم‌های گرمایشی و سرمایشی" onchange="updateSelectedFilters()">تأمین‌کنندگان سیستم‌های گرمایشی و سرمایشی
+                </label>
+			
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">فروشندگان تجهیزات بهداشتی و سرویس‌های بهداشتی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشندگان تولیدکنندگان چینی‌آلات بهداشتی" onchange="updateSelectedFilters()">فروشندگان تولیدکنندگان چینی‌آلات بهداشتی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشندگان لوازم و شیرآلات ساختمانی" onchange="updateSelectedFilters()">فروشندگان لوازم و شیرآلات ساختمانی
+                </label>
+			
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تأمین‌کنندگان پوشش‌های داخلی و نازک‌کاری</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشندگان کاشی و سرامیک" onchange="updateSelectedFilters()">فروشندگان کاشی و سرامیک
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشندگان کفپوش PVC و پارکت لمینت" onchange="updateSelectedFilters()">فروشندگان کفپوش PVC و پارکت لمینت
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان موکت، کفپوش اپوکسی و سنگ مصنوعی" onchange="updateSelectedFilters()">تأمین‌کنندگان موکت، کفپوش اپوکسی و سنگ مصنوعی
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان کاغذ دیواری و دیوارپوش‌های سه‌بعدی" onchange="updateSelectedFilters()">تأمین‌کنندگان کاغذ دیواری و دیوارپوش‌های سه‌بعدی
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان کناف و پانل‌های گچی" onchange="updateSelectedFilters()">تأمین‌کنندگان کناف و پانل‌های گچی
+                </label>
+				<label>
+                    <input type="checkbox" value="تولیدکنندگان دیوارهای پیش‌ساخته بتنی و ساندویچ پانل" onchange="updateSelectedFilters()">تولیدکنندگان دیوارهای پیش‌ساخته بتنی و ساندویچ پانل
+                </label>
+			
+            </div>
+        </div>
+		
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تأمین‌کنندگان تجهیزات الکتریکی و روشنایی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشندگان سیم و کابل برق" onchange="updateSelectedFilters()">فروشندگان سیم و کابل برق
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان تابلو برق و قطعات الکتریکی" onchange="updateSelectedFilters()">تأمین‌کنندگان تابلو برق و قطعات الکتریکی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشندگان سیستم‌های هوشمند روشنایی" onchange="updateSelectedFilters()">فروشندگان سیستم‌های هوشمند روشنایی
+                </label>
+				<label>
+                    <input type="checkbox" value="فروشندگان دوربین‌های مدار بسته و دزدگیر" onchange="updateSelectedFilters()">فروشندگان دوربین‌های مدار بسته و دزدگیر
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان درب‌های اتوماتیک و سیستم‌های کنترل دسترسی" onchange="updateSelectedFilters()">تأمین‌کنندگان درب‌های اتوماتیک و سیستم‌های کنترل دسترسی
+                </label>
+				<label>
+                    <input type="checkbox" value="تأمین‌کنندگان ماشین‌آلات و ابزارآلات ساختمانی" onchange="updateSelectedFilters()">تأمین‌کنندگان ماشین‌آلات و ابزارآلات ساختمانی
+                </label>
+			
+            </div>
+        </div>
+		<div class="category">
+            <h3 onclick="toggleSubmenu(this)">تأمین‌کنندگان ماشین‌آلات ساختمانی</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فروشندگان ماشین‌آلات ساختمانی" onchange="updateSelectedFilters()">فروشندگان ماشین‌آلات ساختمانی
+                </label>
+			
+			</div>
+        </div>
+			
+        </div>
+        </div>
+        <!-- دکمه‌های عملیات -->
+        <div class="actions">
+            <button class="filter-action-btn" onclick="applyFilters()">اعمال فیلتر</button>
+            <button class="filter-action-btn" onclick="resetFilters()">نمایش همه</button>
+        </div>
+    </div>
+</div>
+
+ 
+	
+	<button class="add-rezerve-button" onclick="openModal('8MNJzq9TWW3bsjBs9')">
+    <i class="fas fa-file-alt"></i> <!-- آیکون فرم -->
+</button>
+<!-- فرم سفارش -->
+<div id="orderFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe 
+    src="https://srswebsite.github.io/app/form/bussiness%20form.html" 
+    style="width: 100%; height: 100%; border: none;">
+</iframe>
+  </div>
+</div>
+
+ <div id="footer" class="footer">
+        
+"مرز آفرینش "     در انتظار خلقی نو
+    </div>
+	
+    
+<button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+  
+  <div id="sidebar">
+    <header>
+      <span>پنل سازماندهی راه و ساختمان</span>
+    </header>
+    <div class="content">
+      
+            <iframe class="sidebar-iframe" src="https://srswebsite.github.io/advert/srs/srs.html"frameborder="0" allowfullscreen></iframe>
+        
+     <h1 class="glowIn">سیدرضا سلجوقی</h1>
+<a href="#" class="btn-shine">مهندس معمار و مدیر پروژه های ساختمانی</a>
+
+
+
+
+      <div class="accordion">
+   <button>منو</button>
+  <div class="panel">
+    <a href="https://srswebsite.github.io/app/form/bussiness%20form.html"><i class="fas fa-link"></i>فرم درخواست بازدید</a>
+    <a href="https://srswebsite.github.io/app/proff.html"><i class="fas fa-link"></i> پورتفولیو</a>
+    <a href="https://srswebsite.github.io/g/full gallery"><i class="fas fa-link"></i>گالری اصلی</a>
+    <a href="https://srswebsite.github.io/g/map gallery"><i class="fas fa-link"></i>نقشه گالری</a>
+  
+</div>
+</div>
+
+
+
+      <div class="clock" id="clock">00:00:00</div>
+<div class="footer">
+<div class ="frame">
+<a href="https://srswebsite.github.io/g/full gallery" class="btn">
+ <i class="fa fa-images" style="color: #ff8b8b;"></i>
+</a>
+    <a href="https://srswebsite.github.io/app/proff.html" class="btn">
+ <i class="fa fa-address-card" style="color: #20c4ff;"></i>
+</a>
+    <a href="#" class="btn">
+ <i class="fab fa-instagram" style="color: #e800da"></i>
+</a>
+
+
+<button class="btn" onclick="openModal('8MNJzq9TWW3bsjBs9')">
+    <i class="far fa-envelope"style="color: #3c999f"></i>
+</button>
+
+
+   
+
+<div class="share-options" id="shareOptions">
+    <a href="#" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp" style="color:#25D366;"></i></a>
+    <a href="#" onclick="shareOnTelegram()"><i class="fab fa-telegram-plane" style="color:#0088cc;"></i></a>
+    <a href="#" onclick="shareOnFacebook()"><i class="fab fa-facebook-f" style="color:#3b5998;"></i></a>
+    <a href="#" onclick="shareOnX()"><i class="fab fa-twitter" style="color:#1DA1F2;"></i></a>
+    <a href="#" onclick="shareByEmail()"><i class="fas fa-envelope" style="color:#EA4335;"></i></a>
+    <a href="#" onclick="shareOnTakoTalk()"><i class="fas fa-comments" style="color:#FF4081;"></i></a>
+    <a href="#" onclick="shareOnReddit()"><i class="fab fa-reddit-alien" style="color:#FF4500;"></i></a>
+    <a href="#" onclick="shareOnVK()"><i class="fab fa-vk" style="color:#4B75A0;"></i></a>
+    <a href="#" onclick="shareOnOK()"><i class="fab fa-odnoklassniki" style="color:#F47320;"></i></a>
+    <a href="#" onclick="shareOnPinterest()"><i class="fab fa-pinterest-p" style="color:#E60023;"></i></a>
+    <a href="#" onclick="shareOnBlogger()"><i class="fab fa-blogger-b" style="color:#FF5722;"></i></a>
+    <a href="#" onclick="shareOnTumblr()"><i class="fab fa-tumblr" style="color:#35465C;"></i></a>
+    <a href="#" onclick="shareOnLinkedIn()"><i class="fab fa-linkedin-in" style="color:#0077B5;"></i></a>
+    <a href="#" onclick="shareOnMix()"><i class="fab fa-mix" style=""></i></a>
+    <a href="#" onclick="shareOnGoo()"><i class="fas fa-globe"></i></a>
+    <a href="#" onclick="copyLink()"><i class="fas fa-copy"></i></a>
+	<button class="close-btn" onclick="closeShareOptions()">
+        <i class="fa fa-times" style="color: #ff0000;"></i>
+</div>
+<a href="#" class="btn" id="accordionToggle">
+  <i class="fas fa-download" style="color: #ff0000;"></i>
+</a>
+
+<div id="accordionPanel" class="accordion-panel">
+  <div class="panel-content">
+    <!-- دکمه بستن -->
+    <button class="close-btn" id="closeBtn">
+      <i class="fas fa-times"></i> <!-- آیکون بستن -->
+    </button>
+    
+    <div class="panel-header">
+      <p>لطفا جهت نصب نوع سیستم عامل را مشخص کنید</p>
+    </div>
+    <div class="os-buttons">
+      <button onclick="download('android')" class="btn-os">
+        <i class="fab fa-android"></i> اندروید
+      </button>
+      <button onclick="download('ios')" class="btn-os">
+        <i class="fab fa-apple"></i> آی او اس
+      </button>
+      <button onclick="download('windows')" class="btn-os">
+        <i class="fab fa-windows"></i> ویندوز
+      </button>
+      <button onclick="download('mac')" class="btn-os">
+        <i class="fab fa-apple"></i> مک
+      </button>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div>
+</div>
+<!-- فرم سفارش -->
+<div id="orderFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe 
+    src="https://srswebsite.github.io/app/form/bussiness%20form.html" 
+    style="width: 100%; height: 100%; border: none;">
+</iframe>
+  </div>
+      </div>
+    </div>
+  </div>
+  
+<script  src="file/engines/personal gallery.js"></script>
+ 
+</body>
+</html>
