@@ -1,3 +1,4 @@
+
 const sidebarToggle = document.getElementById('sidebar-toggle');
     const sidebar = document.getElementById('sidebar');
     const clock = document.getElementById('clock');
@@ -278,7 +279,7 @@ function download(platform) {
 
 
         // لینک CSV منتشر شده از گوگل شیت
-        const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTBvxs_ykmhW0CZ16dirK6tS3zSz37BPZB3WeEjHVaVc42nSG1JulhxJf8oX1LF4rHO_BFZN8gYx7ey/pub?output=csv';
+        const gasUrl = 'https://script.google.com/macros/s/AKfycbzTDqrteB6xSU-1Q3g7y45gHLbJPujGkLW9xw7tu7H6j7sd-24W3J6_TXxsPUMmQqnx/exec'; // لینک GAS جایگزین شود
 
         async function fetchSheetData() {
             try {
@@ -288,49 +289,45 @@ function download(platform) {
                 // تبدیل CSV به آرایه‌ها
                 const rows = csvText.split('\n').map(row => row.split(','));
 
-                // استخراج آدرس‌ها از ستون B و دسته‌بندی‌ها از ستون C
-                const data = rows.slice(1).map(row => ({
-                    url: row[2]?.trim(), // ستون B: URL
-                    categories: row.slice(3).join(',').trim() // ستون C: تمام محتوا
-                })).filter(item => item.url); // فیلتر کردن مقادیر خالی
+ async function fetchSheetData() {
+    try {
+        const response = await fetch(gasUrl);
+        const jsonData = await response.json();
 
-                // ایجاد آیفریم‌ها با دسته‌بندی‌ها
-                const container = document.getElementById('iframes-container');
-                data.forEach(item => {
-                    // ایجاد یک بخش برای آیفریم و دسته‌ها
-                    const wrapper = document.createElement('div');
-                    wrapper.style.marginBottom = '20px';
+        const container = document.getElementById('iframes-container');
+        container.innerHTML = ""; // پاک کردن آیتم‌های قبلی
 
-                    // اضافه کردن دسته‌بندی‌ها
-                    if (item.categories) {
-                        const categoriesDiv = document.createElement('div');
-                        categoriesDiv.classList.add('categories'); // اضافه کردن کلاس مخفی
-                        categoriesDiv.textContent = `Categories: ${item.categories}`;
-                        categoriesDiv.style.fontWeight = 'bold';
-                        categoriesDiv.style.marginBottom = '5px';
-                        wrapper.appendChild(categoriesDiv);
-                    }
+        jsonData.forEach(item => {
+            if (!item.url) return; // جلوگیری از آیتم‌های خالی
 
-                    // ایجاد آیفریم
-                    const iframe = document.createElement('iframe');
-                    iframe.src = item.url;
-                    iframe.width = '100%';
-                    iframe.height = '300';
-                    iframe.style.border = '1px solid #ccc';
-                    iframe.style.margin = '10px';
-                    wrapper.appendChild(iframe);
+            const wrapper = document.createElement('div');
+            wrapper.style.marginBottom = '20px';
 
-                    // اضافه کردن به کانتینر اصلی
-                    container.appendChild(wrapper);
-                });
-            } catch (error) {
-                console.error('Error fetching or processing sheet data:', error);
+            if (item.categories) {
+                const categoriesDiv = document.createElement('div');
+                categoriesDiv.classList.add('categories');
+                categoriesDiv.textContent = `Categories: ${item.categories}`;
+                categoriesDiv.style.fontWeight = 'bold';
+                categoriesDiv.style.marginBottom = '5px';
+                wrapper.appendChild(categoriesDiv);
             }
-        }
 
-        // بارگذاری داده‌ها هنگام لود شدن صفحه
-        fetchSheetData();
-		
+            const iframe = document.createElement('iframe');
+            iframe.src = item.url;
+            iframe.width = '100%';
+            iframe.height = '300';
+            iframe.style.border = '1px solid #ccc';
+            iframe.style.margin = '10px';
+            wrapper.appendChild(iframe);
+
+            container.appendChild(wrapper);
+        });
+    } catch (error) {
+        console.error('Error fetching or processing sheet data:', error);
+    }
+}
+
+fetchSheetData(); // بارگذاری داده‌ها هنگام لود شدن صفحه
 // اسکریپت تابع فیلتر گروه
 
 
