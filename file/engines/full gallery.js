@@ -278,18 +278,9 @@ function download(platform) {
 
 
 
-        // لینک CSV منتشر شده از گوگل شیت
-        const gasUrl = 'https://script.google.com/macros/s/AKfycbzTDqrteB6xSU-1Q3g7y45gHLbJPujGkLW9xw7tu7H6j7sd-24W3J6_TXxsPUMmQqnx/exec'; // لینک GAS جایگزین شود
+       const gasUrl = 'https://script.google.com/macros/s/AKfycbzTDqrteB6xSU-1Q3g7y45gHLbJPujGkLW9xw7tu7H6j7sd-24W3J6_TXxsPUMmQqnx/exec'; // لینک GAS جایگزین شود
 
-        async function fetchSheetData() {
-            try {
-                const response = await fetch(csvUrl);
-                const csvText = await response.text();
-
-                // تبدیل CSV به آرایه‌ها
-                const rows = csvText.split('\n').map(row => row.split(','));
-
- async function fetchSheetData() {
+async function fetchSheetData() {
     try {
         const response = await fetch(gasUrl);
         const jsonData = await response.json();
@@ -318,8 +309,12 @@ function download(platform) {
             iframe.height = '300';
             iframe.style.border = '1px solid #ccc';
             iframe.style.margin = '10px';
-            wrapper.appendChild(iframe);
 
+            // ✅ اضافه کردن قابلیت فول اسکرین
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allowfullscreen', '');
+            
+            wrapper.appendChild(iframe);
             container.appendChild(wrapper);
         });
     } catch (error) {
@@ -328,6 +323,8 @@ function download(platform) {
 }
 
 fetchSheetData(); // بارگذاری داده‌ها هنگام لود شدن صفحه
+
+		
 // اسکریپت تابع فیلتر گروه
 
 
@@ -350,21 +347,27 @@ function updateSelectedFilters() {
 
 // اعمال فیلترها
 function applyFilters() {
-    const allCategories = document.querySelectorAll('.categories');
-    allCategories.forEach(categoryDiv => {
+    const allItems = document.querySelectorAll('.categories');
+    
+    allItems.forEach(categoryDiv => {
         const categoryText = categoryDiv.textContent || categoryDiv.innerText;
-        const categoryValues = categoryText.match(/"([^"]+)"/)[1].split(',').map(item => item.trim());
 
-        // بررسی اینکه آیا حداقل یک زیر دسته با فیلترها تطابق دارد
-        const hasMatch = selectedFilters.some(filter => categoryValues.includes(filter));
+        if (!categoryText.includes(":")) return; // اگر فرمت اشتباه بود، ادامه نده
 
-        // پیدا کردن آی‌فریم مرتبط و نمایش یا مخفی کردن آن
-        const iframeContainer = categoryDiv.nextElementSibling;
-        if (iframeContainer) {
-            iframeContainer.style.display = hasMatch ? 'block' : 'none';
-        }
+        const categoryValues = categoryText.split(":")[1] // گرفتن مقدار بعد از "Categories:"
+            .trim()
+            .split(',')
+            .map(item => item.trim().replace(/"/g, '')); // حذف فاصله و علامت نقل قول
+
+        // بررسی اینکه حداقل یکی از فیلترهای انتخاب‌شده در دسته‌بندی وجود دارد
+        const hasMatch = selectedFilters.length === 0 || selectedFilters.some(filter => categoryValues.includes(filter));
+
+        // نمایش یا مخفی کردن آیتم‌ها
+        const wrapper = categoryDiv.parentElement;
+        wrapper.style.display = hasMatch ? 'block' : 'none';
     });
 }
+
 
 
 // ریست کردن فیلترها
