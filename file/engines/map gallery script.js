@@ -203,4 +203,3 @@ function searchLocation(query) {
 let routingControl;
 
 
-
