@@ -33,7 +33,7 @@ function createCustomIcon(color) {
 
 
       // واکشی داده‌ها از Google Apps Script
-      fetch('https://script.google.com/macros/s/AKfycby3tgexNbq2vUYd3NbJs0g1q0WMyjeSekEM2gitXKmfpSxZase10mN4C2gxVvje8gAL/exec')
+      fetch('https://script.google.com/macros/s/AKfycbzl7OtNCyqrvUWuU0_hI4RHxJbog3U6EVyX_ViY-cglV8kDzhoRe5iZQR8bE4q25QCg/exec')
         .then(response => response.json())
         .then(data => {
           data.forEach(pin => {
