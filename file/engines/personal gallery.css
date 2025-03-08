@@ -142,7 +142,7 @@ body {
 
     .footer a {
       margin: 0 10px;
-      color: #007bff;
+      color: #FFF;
       text-decoration: none;
       font-size: 24px;
       transition: transform 0.3s ease;
@@ -610,9 +610,7 @@ iframe {
     border-radius: 10px; /* گرد کردن گوشه‌های آیفریم */
 }
 
-.categories {
-    display: none !important; /* اطمینان از مخفی بودن دسته‌بندی‌ها */
-}
+
 
 /* در حالت تبلت: دو ستون */
 @media (max-width: 768px) {
@@ -630,21 +628,21 @@ iframe {
 }
 
  /* دکمه باز/بسته کردن */
-        #toggle-filter-btn {
-            position: fixed;
-            top: 2px;
-            left: 5px;
-            background: linear-gradient(41deg, #c700ff, #3600ff);
-            color: white;
-            border: none;
-            border-radius: 25px;
-            padding: 10px 10px;
-            font-size: 16px;
-            cursor: pointer;
-            box-shadow: 0px 0px 5px 5px rgb(176 0 255 / 42%);
-            z-index: 1002;
-            transition: background 0.3s ease, transform 0.2s ease;
-        }
+        #toggle-filter-btn{
+  width: 100%;
+  color: #006aff;
+  padding: 5px;
+  background: #e0e5ec;
+  border: none;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 3px 3px 8px rgba(0, 0, 0, 0.2), -3px -3px 8px rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 15px;
+  font-weight: 500;
+  font-family: 'Vazir', sans-serif;
+}
 
         #toggle-filter-btn:hover {
 			transform: translateY(3px); /* جابجایی جزئی هنگام هاور */
@@ -659,7 +657,7 @@ iframe {
   left: 20px;
   width: 320px;
   height: 80vh;
-  background: rgba(0, 4, 255, 0.24);
+  background: rgb(224, 229, 236);
   border-radius: 10px;
   overflow-y: auto;
   overflow-x: hidden;
@@ -674,6 +672,7 @@ iframe {
 
 .filter-panel.open {
     transform: translateX(0);
+	 
 }
 
 .filter-content {
@@ -686,14 +685,14 @@ iframe {
 /* استایل دسته‌ها */
 .category {
     padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
+    background: rgb(237, 240, 244);
     border-radius: 8px;
 }
 
 .category h3 {
     margin: 0 0 10px;
     font-size: 18px;
-    color: #00ffaa;
+    color:#7caaac;
     cursor: pointer;
 }
 
@@ -745,7 +744,7 @@ input[type="checkbox"] {
         }
 .footer {
             background-color: transparent;
-            color: #2196F3;
+            color: #FFF;
             padding: 5px 10px;
             text-align: center;
             position: relative;
