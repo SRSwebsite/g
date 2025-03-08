@@ -278,7 +278,7 @@ function download(platform) {
 
 
 
-       const gasUrl = 'https://script.google.com/macros/s/AKfycbzTDqrteB6xSU-1Q3g7y45gHLbJPujGkLW9xw7tu7H6j7sd-24W3J6_TXxsPUMmQqnx/exec'; // لینک GAS جایگزین شود
+       const gasUrl = 'https://script.google.com/macros/s/AKfycbw0NNv-yl6EWDL9RbVkqxVBCRFoGO2Q0_6DFjmWOWevLtCMSwjsd9HWSuTvsmALMjOn/exec'; // لینک GAS جایگزین شود
 
 async function fetchSheetData() {
     try {
@@ -294,21 +294,56 @@ async function fetchSheetData() {
             const wrapper = document.createElement('div');
             wrapper.style.marginBottom = '20px';
 
-            if (item.categories) {
-                const categoriesDiv = document.createElement('div');
-                categoriesDiv.classList.add('categories');
-                categoriesDiv.textContent = `Categories: ${item.categories}`;
-                categoriesDiv.style.fontWeight = 'bold';
-                categoriesDiv.style.marginBottom = '5px';
-                wrapper.appendChild(categoriesDiv);
+            // نمایش نام پروژه بالای آیفریم
+            if (item.name) {
+                const nameDiv = document.createElement('div');
+                nameDiv.classList.add('name');
+                nameDiv.textContent = `Project Name: ${item.name}`;
+                nameDiv.style.fontWeight = 'bold';
+                nameDiv.style.marginBottom = '5px';
+                wrapper.appendChild(nameDiv);
             }
 
+            // نمایش متراژ پروژه بالای آیفریم
+            if (item.paymentMethod) {
+                const paymentDiv = document.createElement('div');
+                paymentDiv.classList.add('payment-method');
+                paymentDiv.textContent = `Project Size: ${item.paymentMethod}`;
+                paymentDiv.style.fontWeight = 'bold';
+                paymentDiv.style.marginBottom = '5px';
+                wrapper.appendChild(paymentDiv);
+            }
+
+            // نمایش وضعیت بالای آیفریم
+            if (item.score) {
+                const scoreDiv = document.createElement('div');
+                scoreDiv.classList.add('score');
+                scoreDiv.textContent = `Status: ${item.score}`;
+                scoreDiv.style.fontWeight = 'bold';
+                scoreDiv.style.marginBottom = '5px';
+                wrapper.appendChild(scoreDiv);
+            }
+
+            // ایجاد آیفریم و تنظیمات آن
             const iframe = document.createElement('iframe');
             iframe.src = item.url;
             iframe.width = '100%';
             iframe.height = '300';
             iframe.style.border = '1px solid #ccc';
             iframe.style.margin = '10px';
+
+            // نمایش دسته‌بندی زیر آیفریم
+            if (item.categories) {
+                console.log('Categories:', item.categories); // چاپ دسته‌بندی‌ها در کنسول
+                const categoriesDiv = document.createElement('div');
+                categoriesDiv.classList.add('categories');
+                categoriesDiv.textContent = `Categories: ${item.categories}`;
+                categoriesDiv.style.fontWeight = 'bold';
+                categoriesDiv.style.marginTop = '5px';
+                wrapper.appendChild(categoriesDiv);
+            } else {
+                console.log('No categories for this item:', item); // چاپ پیغام در صورت عدم وجود دسته‌بندی
+            }
 
             // ✅ اضافه کردن قابلیت فول اسکرین
             iframe.setAttribute('frameborder', '0');
@@ -324,7 +359,6 @@ async function fetchSheetData() {
 
 fetchSheetData(); // بارگذاری داده‌ها هنگام لود شدن صفحه
 
-		
 // اسکریپت تابع فیلتر گروه
 
 
