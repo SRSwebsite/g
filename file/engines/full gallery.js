@@ -278,7 +278,7 @@ function download(platform) {
 
 
 
-       const gasUrl = 'https://script.google.com/macros/s/AKfycbw0NNv-yl6EWDL9RbVkqxVBCRFoGO2Q0_6DFjmWOWevLtCMSwjsd9HWSuTvsmALMjOn/exec'; // لینک GAS جایگزین شود
+       const gasUrl = 'https://script.google.com/macros/s/AKfycbzPE1aAQgHjLi_rlRQYs1WbPal2JZFl3E3CPdw9yplblol3KyPYamL2pRwdKCgCywwm/exec'; // لینک GAS جایگزین شود
 
 async function fetchSheetData() {
     try {
