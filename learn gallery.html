@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+	 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="file/engines/learn gallery.css">
+  <link rel="icon" href="file/images/srs.ico" type="image/x-icon"> <!-- آیکون -->
+</head>
+<body>
+<div class="header">
+
+
+
+<a href="#" class="btn-shine">لیست دوره های آموزشی_      VIP Learning_SRS</a>
+<button onclick="hardReload()" style="padding: 6px 12px; background: #fff; color: #1976d2; border: none; border-radius: 4px; cursor: pointer;">
+    <i class="fas fa-sync-alt fa-spin" style="margin-right: 5px;"></i> بارگذاری مجدد
+</button>
+</div>
+<div id="iframes-container"></div>
+    
+	<button id="theme-toggle" onclick="toggleTheme()">
+    <i class="fas fa-adjust"></i> <!-- آیکون تغییر تم -->
+</button>
+	
+	<button class="scroll-link" onclick="scrollToFooter()">
+        <i class="fas fa-plane-departure"></i>
+    </button>
+	
+	<button id="toggle-filter-btn" onclick="toggleFilterPanel()">
+    <i class="fas fa-filter"></i> <!-- آیکون فیلتر -->
+</button>
+
+
+<div id="filter-panel" class="filter-panel">
+    <div class="filter-content">
+	 <!-- دسته "نوع کاربری" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">فناوری و کامپیوتر</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="مبانی کامپیوتر و اینترنت" onchange="updateSelectedFilters()"> مبانی کامپیوتر و اینترنت
+                </label>
+                <label>
+                    <input type="checkbox" value="برنامه‌نویسی مقدماتی" onchange="updateSelectedFilters()">برنامه‌نویسی مقدماتی
+                </label>
+				<label>
+                    <input type="checkbox" value="طراحی وبسایت‌های ساده" onchange="updateSelectedFilters()"> طراحی وبسایت‌های ساده
+                </label>
+				<label>
+                    <input type="checkbox" value="هوش مصنوعی برای همه" onchange="updateSelectedFilters()"> هوش مصنوعی برای همه
+                </label>
+				
+            </div>
+        </div>
+        <!-- دسته "مصالح" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">طراحی گرافیک</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="فتوشاپ از صفر تا پیشرفته" onchange="updateSelectedFilters()"> فتوشاپ از صفر تا پیشرفته
+                </label>
+                <label>
+                    <input type="checkbox" value="طراحی لوگو و پست" onchange="updateSelectedFilters()"> طراحی لوگو و پست
+                </label>
+                <label>
+                    <input type="checkbox" value="ساخت بنر تبلیغاتی" onchange="updateSelectedFilters()"> ساخت بنر تبلیغاتی
+                </label>
+            </div>
+        </div>
+		 <!-- دسته نوع سازه" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">طراحی معماری</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="اتوکد و نقشه‌کشی" onchange="updateSelectedFilters()"> اتوکد و نقشه‌کشی
+                </label>
+                <label>
+                    <input type="checkbox" value="مدلسازی با 3ds Max" onchange="updateSelectedFilters()"> مدلسازی با 3ds Max
+                </label>
+				<label>
+                    <input type="checkbox" value="طراحی داخلی و دکوراسیون" onchange="updateSelectedFilters()"> طراحی داخلی و دکوراسیون
+                </label>
+            </div>
+        </div>
+		<!-- دسته تراکم" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">طراحی مد و لباس</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="طراحی دستی و دیجیتال لباس" onchange="updateSelectedFilters()"> طراحی دستی و دیجیتال لباس
+                </label>
+                <label>
+                    <input type="checkbox" value="کار با Clo3D" onchange="updateSelectedFilters()"> کار با Clo3D
+                </label>
+				<label>
+                    <input type="checkbox" value="شناخت رنگ و استایل" onchange="updateSelectedFilters()"> شناخت رنگ و استایل
+            </label></div>
+        </div>
+		 <!--دسته بندی وضع موجود" -->
+        <div class="category">
+            <h3 onclick="toggleSubmenu(this)">طراحی جواهرات</h3>
+            <div class="submenu">
+                <label>
+                    <input type="checkbox" value="مبانی طراحی جواهر" onchange="updateSelectedFilters()"> مبانی طراحی جواهر
+                </label>
+                <label>
+                    <input type="checkbox" value="مدل‌سازی با Rhino" onchange="updateSelectedFilters()">مدل‌سازی با Rhino
+                </label>
+				<label>
+                    <input type="checkbox" value="ساخت نمونه‌های دستی" onchange="updateSelectedFilters()"> ساخت نمونه‌های دستی
+                </label>
+				
+            </div>
+        </div>
+<!--دسته بندی انواع پروژه" -->
+       
+        <!-- دسته "سبک" -->
+       
+
+        <!-- دکمه‌های عملیات -->
+        <div class="actions">
+            <button class="filter-action-btn" onclick="applyFilters()">اعمال فیلتر</button>
+            <button class="filter-action-btn" onclick="resetFilters()">پاک کردن فیلتر ها</button>
+        </div>
+    </div>
+</div>
+
+ 
+	
+	<button class="add-rezerve-button" onclick="openModal('8MNJzq9TWW3bsjBs9')">
+    <i class="fas fa-file-alt"></i> <!-- آیکون فرم -->
+</button>
+<!-- فرم سفارش -->
+<div id="orderFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe 
+    src="form.html" 
+    style="width: 100%; height: 100%; border: none;">
+</iframe>
+  </div>
+</div>
+
+ <div id="footer" class="footer">
+        
+<a  class="btn-shine">کسب مهارت نیازمند : تمرین ،تمرکز و گذشت زمان است،وقتی تسلط یافتید، این غریزه  شما است که مهارت را کنترل میکند</a>
+    </div>
+	
+    
+<button id="sidebar-toggle"><i class="fas fa-bars"></i></button>
+  
+  <div id="sidebar">
+    <header>
+      <span>مهندس:سیدرضا سلجوقی</span>
+    </header>
+    <div class="content">
+      
+                       <iframe class="sidebar-iframe" src="https://srswebsite.github.io/app/logo/index.html"></iframe>
+        
+     <h1 class="glowIn">دوره های حرفه ای آموزش طراحی ساختمان</h1>
+
+<a  class="btn-shine">VIP Learning</a>
+
+
+
+      <div class="accordion">
+   <button>منو</button>
+  <div class="panel">
+   
+    <a href="#"><i class="fas fa-link"></i> در باره ما</a>
+    <a href="#"><i class="fas fa-link"></i>لیست دوره ها</a>
+    <a href="#"><i class="fas fa-link"></i>اپلیکیشن آموزشی</a>
+	 <a href="#"><i class="fas fa-link"></i>شرایط شرکت در دوره های آموزشی</a>
+  
+</div>
+</div>
+
+
+
+      <div class="clock" id="clock">00:00:00</div>
+<div class="footer">
+<div class ="frame">
+<a href="tel:+989123456789" class="btn">
+ <i class="fa fa-phone" style="color: #ff8b8b;"></i>
+
+</a>
+    <a href="#" class="btn">
+ <i class="fab fa-telegram-plane" style="color: #20c4ff;"></i>
+
+
+</a>
+    <a href="#" class="btn">
+ <i class="fab fa-instagram" style="color: #e800da"></i>
+</a>
+
+
+<button class="btn" onclick="openModal('8MNJzq9TWW3bsjBs9')">
+    <i class="far fa-envelope"style="color: #3c999f"></i>
+</button>
+
+
+   
+
+<a href="#" class="btn" id="accordionToggle">
+  <i class="fas fa-download" style="color: #ff0000;"></i>
+</a>
+
+<div id="accordionPanel" class="accordion-panel">
+  <div class="panel-content">
+    <!-- دکمه بستن -->
+    <button class="close-btn" id="closeBtn">
+      <i class="fas fa-times"></i> <!-- آیکون بستن -->
+    </button>
+    
+    <div class="panel-header">
+      <p>لطفا جهت نصب نوع سیستم عامل را مشخص کنید</p>
+    </div>
+    <div class="os-buttons">
+      <button onclick="download('android')" class="btn-os">
+        <i class="fab fa-android"></i> اندروید
+      </button>
+      <button onclick="download('ios')" class="btn-os">
+        <i class="fab fa-apple"></i> آی او اس
+      </button>
+      <button onclick="download('windows')" class="btn-os">
+        <i class="fab fa-windows"></i> ویندوز
+      </button>
+      <button onclick="download('mac')" class="btn-os">
+        <i class="fab fa-apple"></i> مک
+      </button>
+    </div>
+  </div>
+</div>
+
+
+</div>
+</div>
+<div id="map" style="height: 300px; width: 100%; border-radius: 12px; margin: 20px 0;"></div>
+</div>
+<!-- فرم سفارش -->
+<div id="orderFormModal" class="modal">
+  <div class="modal-content">
+    <span class="close" onclick="closeModal()">&times;</span>
+    <iframe 
+    src="form.html" 
+    style="width: 100%; height: 100%; border: none;">
+</iframe>
+  </div>
+      </div>
+    </div>
+  </div>
+  
+<script  src="file/engines/learn gallery.js"></script>
+ 
+</body>
+</html>
