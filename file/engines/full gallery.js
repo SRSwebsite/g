@@ -233,7 +233,7 @@ function openModal(url) {
   const iframe = modal.querySelector("iframe");
 
   if (modal && iframe) {
-    iframe.src = `https://srswebsite.github.io/app/form/bussiness%20form.html`;  // تغییر URL iframe
+    iframe.src = `form.html`;  // تغییر URL iframe
     modal.style.display = "block"; // نمایش پاپ‌آپ
   }
 }
@@ -275,87 +275,86 @@ function download(platform) {
   window.location.href = downloadLinks[platform];
 }
 
-
-
-
-       const gasUrl = 'https://script.google.com/macros/s/AKfycbx1Tdsq5KxhBBV0xZmEQmiKx8kGn_2-IVsJj_Mfy_3hh5B0J504j_6WytJrAPshMwys/exec'; // لینک GAS جایگزین شود
+       const gasUrl = 'https://script.google.com/macros/s/AKfycbxXpCOdcDREnwn3CvIdR8XH1NEB7245vtY_6ZA85_quorGsp8B21MErkpHDegJdW7LL/exec'; // لینک GAS جایگزین شود
 
 async function fetchSheetData() {
     try {
         const response = await fetch(gasUrl);
-        const jsonData = await response.json();
+        if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
 
+        const jsonData = await response.json();
         const container = document.getElementById('iframes-container');
-        container.innerHTML = ""; // پاک کردن آیتم‌های قبلی
+        container.innerHTML = "";
 
         jsonData.forEach(item => {
-            if (!item.url) return; // جلوگیری از آیتم‌های خالی
+            if (!item.url) return;
 
             const wrapper = document.createElement('div');
-            wrapper.style.marginBottom = '20px';
+            wrapper.style.marginBottom = '30px';
 
-            // نمایش نام پروژه بالای آیفریم
+            // نوار عنوان و دکمه
             if (item.name) {
-                const nameDiv = document.createElement('div');
-                nameDiv.classList.add('name');
-                nameDiv.textContent = `Project Name: ${item.name}`;
-                nameDiv.style.fontWeight = 'bold';
-                nameDiv.style.marginBottom = '5px';
-                wrapper.appendChild(nameDiv);
+                const headerDiv = document.createElement('div');
+                headerDiv.style.display = 'flex';
+                headerDiv.style.justifyContent = 'space-between';
+                headerDiv.style.alignItems = 'center';
+                headerDiv.style.marginBottom = '8px';
+
+                const title = document.createElement('div');
+                title.textContent = `نام پروژه: ${item.name}`;
+                title.style.fontWeight = 'bold';
+                title.style.fontSize = '16px';
+
+                const button = document.createElement('a');
+                button.textContent = 'مشاهده پروژه';
+                button.href = item.projectUrl || item.url;
+                button.target = '_blank';
+                button.style.padding = '6px 12px';
+                button.style.backgroundColor = '#1976d2';
+                button.style.color = '#fff';
+                button.style.textDecoration = 'none';
+                button.style.borderRadius = '4px';
+                button.style.fontSize = '14px';
+
+                headerDiv.appendChild(title);
+                headerDiv.appendChild(button);
+                wrapper.appendChild(headerDiv);
             }
 
-            // نمایش متراژ پروژه بالای آیفریم
-            if (item.paymentMethod) {
-                const paymentDiv = document.createElement('div');
-                paymentDiv.classList.add('payment-method');
-                paymentDiv.textContent = `Project Size: ${item.paymentMethod}`;
-                paymentDiv.style.fontWeight = 'bold';
-                paymentDiv.style.marginBottom = '5px';
-                wrapper.appendChild(paymentDiv);
-            }
-
-            // نمایش وضعیت بالای آیفریم
-            if (item.score) {
-                const scoreDiv = document.createElement('div');
-                scoreDiv.classList.add('score');
-                scoreDiv.textContent = `Status: ${item.score}`;
-                scoreDiv.style.fontWeight = 'bold';
-                scoreDiv.style.marginBottom = '5px';
-                wrapper.appendChild(scoreDiv);
-            }
-
-            // ایجاد آیفریم و تنظیمات آن
+            // آیفریم
             const iframe = document.createElement('iframe');
             iframe.src = item.url;
-            iframe.width = '100%';
-            iframe.height = '300';
+            iframe.style.width = '100%';
+            iframe.style.height = '300px';
             iframe.style.border = '1px solid #ccc';
-            iframe.style.margin = '10px';
+            iframe.style.margin = '0';
+            iframe.setAttribute('allowfullscreen', '');
+            wrapper.appendChild(iframe);
 
-            // نمایش دسته‌بندی زیر آیفریم
+            // دسته‌بندی‌ها برای فیلتر کردن
             if (item.categories) {
-                console.log('Categories:', item.categories); // چاپ دسته‌بندی‌ها در کنسول
+                const categoriesText = Array.isArray(item.categories)
+                    ? item.categories.join(', ')
+                    : item.categories;
+
                 const categoriesDiv = document.createElement('div');
-                categoriesDiv.classList.add('categories');
-                categoriesDiv.textContent = `Categories: ${item.categories}`;
+                categoriesDiv.className = 'categories';
+                categoriesDiv.textContent = `دسته‌بندی‌ها: ${categoriesText}`;
                 categoriesDiv.style.fontWeight = 'bold';
                 categoriesDiv.style.marginTop = '5px';
                 wrapper.appendChild(categoriesDiv);
-            } else {
-                console.log('No categories for this item:', item); // چاپ پیغام در صورت عدم وجود دسته‌بندی
             }
 
-            // ✅ اضافه کردن قابلیت فول اسکرین
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allowfullscreen', '');
-            
-            wrapper.appendChild(iframe);
             container.appendChild(wrapper);
         });
+
     } catch (error) {
-        console.error('Error fetching or processing sheet data:', error);
+        console.error('خطا در دریافت یا پردازش داده‌ها:', error);
     }
 }
+
+fetchSheetData();
+
 
 fetchSheetData(); // بارگذاری داده‌ها هنگام لود شدن صفحه
 
@@ -432,7 +431,7 @@ function openModal(url) {
   const iframe = modal.querySelector("iframe");
 
   if (modal && iframe) {
-    iframe.src = `https://srswebsite.github.io/app/form/bussiness%20form.html`;  // تغییر URL iframe
+    iframe.src = `form.html`;  // تغییر URL iframe
     modal.style.display = "block"; // نمایش پاپ‌آپ
   }
 }
@@ -471,3 +470,34 @@ document.getElementById('theme-toggle').addEventListener('click', function() {
 		
 
 
+ // مختصات میدان آزادی کرمان
+  const azadiKerman = [30.2811, 56.9779];
+
+  // ساخت نقشه
+  const map = L.map('map').setView(azadiKerman, 15);
+
+  // بارگذاری نقشه از OpenStreetMap
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+  }).addTo(map);
+
+  // افزودن یک آیکون سفارشی جذاب
+  const customIcon = L.icon({
+    iconUrl: 'https://cdn-icons-png.flaticon.com/512/684/684908.png', // آیکون دلخواه (مثلاً پین رنگی)
+    iconSize: [38, 38],
+    iconAnchor: [19, 38],
+    popupAnchor: [0, -38]
+  });
+
+  // مارکر با آیکون سفارشی و پاپ‌آپ
+  L.marker(azadiKerman, { icon: customIcon })
+    .addTo(map)
+    .bindPopup('<b>آدرس دفتر آموزشی:کرمان_بلوار جمهوری اسلامی_بلوار رضوان_رضوان37_پلاک110_واحد اول</b>')
+    .openPopup();
+	
+	function hardReload() {
+    // با افزودن query string تصادفی، مرورگر کش رو دور میزنه
+    const currentUrl = window.location.href.split('?')[0];
+    const newUrl = `${currentUrl}?reload=${new Date().getTime()}`;
+    window.location.href = newUrl;
+}
