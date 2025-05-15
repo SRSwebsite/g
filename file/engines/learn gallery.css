@@ -1,7 +1,7 @@
 body {
       margin: 0;
       font-family: 'Vazir', sans-serif;
-      background: #e0e5ec;
+      background-color: #9883ff;
       overflow-x: hidden;
       transition: margin-left 0.3s ease;
     }
@@ -548,7 +548,7 @@ body {
     font-family: 'Arial', sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #e0e5ec; /* رنگ پس‌زمینه روشن */
+   background-color: #4facff; /* رنگ پس‌زمینه روشن */
     color: #333; /* رنگ متن تیره */
 }
 
